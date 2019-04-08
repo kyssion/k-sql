@@ -6,7 +6,7 @@ import org.ksql.script.fatory.SqlDataFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DefaultSqlDataFactoryBuilder {
+public class DefaultSqlDataBuilderFatory implements  SqlDataBuilderFactory{
     private static final SqlDataFactory factoryCache = new DefaultSqlDataFactory();
     private static AtomicInteger init = new AtomicInteger(0);
     public static SqlDataFactory create(String...packAddr){

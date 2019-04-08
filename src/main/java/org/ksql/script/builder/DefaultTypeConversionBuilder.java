@@ -17,9 +17,12 @@ public class DefaultTypeConversionBuilder implements TypeConversionBuilder{
             return (TypeConversion<T, S>) cache.get(t.getClass());
         }
         if(s instanceof ResultSet){
-            TypeConversion<T,S> conversion = new VertxTypeConversion<>();
-            cache.put(t.getClass(),new VertxTypeConversion());
-            return conversion;
+            return new TypeConversion<T, S>() {
+                @Override
+                public T concersion(S s) {
+                    return null;
+                }
+            };
         }
         return null;
     }
