@@ -7,6 +7,15 @@ public class SqlDataMap {
     private Class<?> mapper;
     private String mapperId;
     private Map<String,SqlData> methodMap;
+    private Object mapperProxy;
+
+    public Object getMapperProxy() {
+        return mapperProxy;
+    }
+
+    public void setMapperProxy(Object mapperProxy) {
+        this.mapperProxy = mapperProxy;
+    }
 
     public Class<?> getMapper() {
         return mapper;
