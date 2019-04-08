@@ -3,7 +3,7 @@ package org.ksql.script.bo;
 import java.util.Map;
 
 /**
- *
+ * 一个mapper文件中一个method对应的参数表达
  */
 public class SqlData {
 
@@ -11,6 +11,7 @@ public class SqlData {
     private Map<String,String> params;
     private Map<String,Class<?>> paramsType;
     private ReturnParam returnParam;
+
     public String getSql() {
         return sql;
     }

@@ -1,4 +1,5 @@
 package org.ksql;
 
-public class Test {
+public interface Test {
+    void test();
 }
