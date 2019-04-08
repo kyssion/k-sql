@@ -1,16 +1,14 @@
 package org.ksql.script.fatory;
 
 
-import org.ksql.script.bo.SqlData;
-import org.ksql.script.builder.DataSqlBuilder;
-import org.ksql.script.builder.DefaultDataSqlBuilder;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultSqlDataFactory implements SqlDataFactory{
 
-    private static final DataSqlBuilder dataBuilder = new DefaultDataSqlBuilder();
+    private static ConcurrentHashMap<Class<?>,Object> cache =
+            new ConcurrentHashMap<>();
 
-    @Override
-    public SqlData getSqlData(Class<?> mapper) {
-        return dataBuilder.createData(mapper);
+    public <T> T getSqlData(Class<T> mapper) {
+        return null;
     }
 }
