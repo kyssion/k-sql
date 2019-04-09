@@ -3,6 +3,7 @@ package org.ksql.script.fatory;
 
 import org.ksql.script.bo.SqlData;
 import org.ksql.script.bo.SqlDataMap;
+import org.mirror.reflection.mirror.MirrorClass;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +13,16 @@ public class DefaultSqlDataFactory implements SqlDataFactory{
             new ConcurrentHashMap<>();
 
     public <T> T getSqlData(Class<T> mapper) {
-        return (T) cache.get(mapper).getMapperProxy();
+        if(cache.contains(mapper)){
+           return (T) cache.get(mapper).getMapperProxy();
+        }
+
+        SqlDataMap sqlDataMap = new SqlDataMap();
+        sqlDataMap.setMapper(mapper);
+
+        MirrorClass mirrorClass = MirrorClass.forClass(mapper);
+
+        return null;
     }
 
     @Override
