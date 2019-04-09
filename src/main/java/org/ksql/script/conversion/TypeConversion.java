@@ -1,5 +1,7 @@
 package org.ksql.script.conversion;
 
-public interface TypeConversion<T,S> {
-    T concersion(S s);
+import org.ksql.script.bo.ReturnParam;
+
+public interface TypeConversion<S> {
+     void concersion(ReturnParam returnParam,S s);
 }

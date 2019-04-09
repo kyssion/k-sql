@@ -1,5 +1,8 @@
-package org.ksql.script.fatory;
+package org.ksql.script.builder;
 
+
+import org.ksql.script.fatory.DefaultSqlDataFactory;
+import org.ksql.script.fatory.SqlDataFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
