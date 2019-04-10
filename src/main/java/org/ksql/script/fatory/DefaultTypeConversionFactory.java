@@ -7,12 +7,7 @@ import org.ksql.script.conversion.TypeConversion;
 public class DefaultTypeConversionFactory implements TypeConversionFactory {
 
     @Override
-    public <T, S> TypeConversion createTypeConversion(ReturnParam<T, S> returnParam, S s) {
-        if(returnParam.getReturnParamType().getName().startsWith("L")){
-
-        }else{
-
-        }
+    public <S> TypeConversion createTypeConversion(ReturnParam returnParam, S s) {
         return null;
     }
 }
