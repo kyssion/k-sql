@@ -1,8 +1,5 @@
 package org.ksql.script.bo;
 
-
-import org.ksql.script.conversion.TypeConversion;
-
 /**
  * 针对返回值进行封装,提供返回值类类型和转化的一层封装
  * @param <T> 返回值的类型
