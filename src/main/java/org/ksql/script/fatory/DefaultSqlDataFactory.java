@@ -1,10 +1,12 @@
 package org.ksql.script.fatory;
 
 
+import org.ksql.script.annotation.Mapper;
 import org.ksql.script.bo.SqlData;
 import org.ksql.script.bo.SqlDataMap;
 import org.mirror.reflection.mirror.MirrorClass;
 
+import java.lang.annotation.Annotation;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultSqlDataFactory implements SqlDataFactory{
@@ -16,13 +18,19 @@ public class DefaultSqlDataFactory implements SqlDataFactory{
         if(cache.contains(mapper)){
            return (T) cache.get(mapper).getMapperProxy();
         }
+        SqlDataMap sqlDataMap = initSqlData(mapper);
+        return (T) sqlDataMap.getMapperProxy();
+    }
 
+    private <T> SqlDataMap initSqlData(Class<T> mapper) {
+        //初始化map
         SqlDataMap sqlDataMap = new SqlDataMap();
         sqlDataMap.setMapper(mapper);
 
-        MirrorClass mirrorClass = MirrorClass.forClass(mapper);
+        MirrorClass mapperClass = MirrorClass.forClass(mapper);
+        sqlDataMap.setMapperId(mapperClass.getType().getName());
 
-        return null;
+        return sqlDataMap;
     }
 
     @Override

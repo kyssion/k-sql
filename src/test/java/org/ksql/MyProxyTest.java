@@ -1,13 +1,13 @@
-package org.ksql.proxy;
+package org.ksql;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class MyProxy {
+public class MyProxyTest {
     public static void main(String[] args) {
         Myproxy<TestInterface> myproxy = new Myproxy<>(new TestInterfaceImp());
-        TestInterface testInterface = (TestInterface) Proxy.newProxyInstance(Proxy.class.getClassLoader(),new Class[]{TestInterface.class},myproxy);
+        TestInterface testInterface = (TestInterface) Proxy.newProxyInstance(MyProxyTest.class.getClassLoader(),new Class[]{TestInterface.class},myproxy);
         testInterface.say("test");
     }
 }
