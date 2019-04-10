@@ -3,7 +3,6 @@ package org.ksql.script.builder;
 
 import org.ksql.script.bo.SqlData;
 import org.ksql.script.bo.SqlDataMap;
-import org.mirror.reflection.agent.Agent;
 import org.mirror.reflection.agent.MethodAgent;
 import org.mirror.reflection.mirror.MirrorClass;
 
