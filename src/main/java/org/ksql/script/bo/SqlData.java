@@ -7,13 +7,13 @@ import java.util.Map;
 /**
  * 一个mapper文件中一个method对应的参数表达
  */
-public class SqlData<T,S> {
+public class SqlData {
 
     private String sql;
     private Map<String,String> sqlParams;
     private Map<String,Class<?>> paramsType;
-    private ReturnParam<T,S> returnParam;
-    private TypeConversion<S> tsTypeConversion;
+    private ReturnParam returnParam;
+    private TypeConversion tsTypeConversion;
 
     public Map<String, String> getSqlParams() {
         return sqlParams;
@@ -23,19 +23,19 @@ public class SqlData<T,S> {
         this.sqlParams = sqlParams;
     }
 
-    public ReturnParam<T, S> getReturnParam() {
+    public ReturnParam getReturnParam() {
         return returnParam;
     }
 
-    public void setReturnParam(ReturnParam<T, S> returnParam) {
+    public void setReturnParam(ReturnParam returnParam) {
         this.returnParam = returnParam;
     }
 
-    public TypeConversion<S> getTsTypeConversion() {
+    public TypeConversion getTsTypeConversion() {
         return tsTypeConversion;
     }
 
-    public void setTsTypeConversion(TypeConversion<S> tsTypeConversion) {
+    public void setTsTypeConversion(TypeConversion tsTypeConversion) {
         this.tsTypeConversion = tsTypeConversion;
     }
 

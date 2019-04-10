@@ -9,8 +9,6 @@ public class SqlDataMap {
     private Map<String,SqlData> methodMap;
     private Object mapperProxy;
 
-
-
     public Object getMapperProxy() {
         return mapperProxy;
     }

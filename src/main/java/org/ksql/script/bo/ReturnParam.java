@@ -2,28 +2,26 @@ package org.ksql.script.bo;
 
 /**
  * 针对返回值进行封装,提供返回值类类型和转化的一层封装
- * @param <T> 返回值的类型
- * @param <S> 从数据库中查出的原始类型
  */
-public class ReturnParam<T,S> {
-    private Class<T> returnParamType;
-    private T result;
-    private S baseData;
-    private Class<S> baseDataType;
+public class ReturnParam {
+    private Class<?> returnParamType;
+    private Object result;
+    private Object baseData;
+    private Class<?> baseDataType;
 
-    public Class<T> getReturnParamType() {
+    public Class<?> getReturnParamType() {
         return returnParamType;
     }
 
-    public T getResult() {
+    public Object getResult() {
         return result;
     }
 
-    public S getBaseData() {
+    public Object getBaseData() {
         return baseData;
     }
 
-    public Class<S> getBaseDataType() {
+    public Class<?> getBaseDataType() {
         return baseDataType;
     }
 }
