@@ -8,7 +8,6 @@ public class ReturnParam {
     private Object result;
     private Object baseData;
     private Class<?> baseDataType;
-
     public Class<?> getReturnParamType() {
         return returnParamType;
     }
