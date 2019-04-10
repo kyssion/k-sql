@@ -9,6 +9,7 @@ public class ReturnParam<T,S> {
     private Class<T> returnParamType;
     private T result;
     private S baseData;
+    private Class<S> baseDataType;
 
     public Class<T> getReturnParamType() {
         return returnParamType;
@@ -20,5 +21,9 @@ public class ReturnParam<T,S> {
 
     public S getBaseData() {
         return baseData;
+    }
+
+    public Class<S> getBaseDataType() {
+        return baseDataType;
     }
 }
