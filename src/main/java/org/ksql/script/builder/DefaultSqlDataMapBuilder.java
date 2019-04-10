@@ -7,6 +7,7 @@ import org.mirror.reflection.agent.MethodAgent;
 import org.mirror.reflection.mirror.MirrorClass;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +21,17 @@ public class DefaultSqlDataMapBuilder implements SqlDataMapBuilder {
 
         for(MethodAgent agent:list){
             Method method = agent.getMethod();
-
+            SqlData sqlData = new SqlData();
+            initReturnParam(sqlData,method);
         }
 
         return methMap;
     }
+
+    private void initReturnParam(SqlData sqlData, Method method) {
+        Type returnType = method.getReturnType();
+
+    }
+
+
 }
