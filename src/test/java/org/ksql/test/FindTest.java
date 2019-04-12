@@ -5,32 +5,31 @@ import org.junit.experimental.theories.DataPoint;
 import org.ksql.script.annotation.Mapper;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
-import java.lang.reflect.Field;
+import java.lang.reflect.*;
 
 public class FindTest {
-    public static void main(String[] args) throws NoSuchFieldException, NoSuchMethodException {
+    public static void main(String[] args) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class<?> item = Find.class;
 
-        item.getAnnotations();//
-        item.getAnnotation(Mapper.class);
-        item.getDeclaredAnnotations();
-        item.getDeclaredAnnotation(Mapper.class);
+        item.getAnnotations();//获取所有的注解(包括继承的注解,但是并不包括重复注解)
 
-        item.getAnnotationsByType(Mapper.class);
-        item.getDeclaredAnnotationsByType(Mapper.class);
+        Method method =
+                item.getMethod("method",new Class[]{Object.class});
+        item.getMethods();
+        item.getDeclaredMethod("method",new Class[]{Object.class});
+        item.getDeclaredMethods();
+        item.getEnclosingMethod();//返回这个封闭类的所有方法
 
-        Field field = item.getDeclaredField("test");
+        method.getGenericParameterTypes();//返回参类型的数组
+        method.getParameterTypes();//返回参数类型class数组
 
-        Annotation annotation=field.getDeclaredAnnotation(Mapper.class);
-        Annotation[] annotations= field.getDeclaredAnnotations();//获取所有的注解包括重复主机,不保留继承的注解
-        Annotation[] annotations2=field.getAnnotations();//获取所有的注解.保留继承
+        method.getTypeParameters();//返回 <S> T method S对应的信息
+        method.getParameterCount();//返回参数数量
 
-        //这两个增加了对java8 重复注解的支持,Declared只是保证非继承
-        Annotation[] annotations3= field.getAnnotationsByType(Mapper.class);//支持可重复注解
-        Annotation[] annotations1=field.getDeclaredAnnotationsByType(Mapper.class);//返回直接存在于此元素上的所有注解。与此接口中的其他方法不同，该方法将忽略继承的注释
+        method.getGenericReturnType();//获取变量的type类型
+        method.getReturnType();//获取变量的返回值class
 
-        AnnotatedType annotatedType=field.getAnnotatedType();
+        method.invoke(new Object(),new Object[]{});
     }
 }
 
@@ -42,7 +41,7 @@ class Find<T>{
     @ClassRule
     @DataPoint
     T test;
-    public T method(){
+    public <S> T method(T name){
         return this.test;
     }
 }
