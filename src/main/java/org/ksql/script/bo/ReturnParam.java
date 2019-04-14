@@ -8,6 +8,17 @@ public class ReturnParam {
     private Object result;
     private Object baseData;
     private Class<?> baseDataType;
+
+    public ReturnParam(Object result, Class<?> returnParamType, Class<?> baseDataType) {
+        this.result = result;
+        this.returnParamType = returnParamType;
+        this.baseDataType = baseDataType;
+    }
+
+    public void setBaseData(Object baseData) {
+        this.baseData = baseData;
+    }
+
     public Class<?> getReturnParamType() {
         return returnParamType;
     }
