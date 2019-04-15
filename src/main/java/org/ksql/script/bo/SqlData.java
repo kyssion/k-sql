@@ -11,8 +11,35 @@ public class SqlData {
 
     private String sql;
     private Map<String,Param> sqlParams;
+    private String baseSql;
+    private Object baseParams;
+    private Class<?> baseParamsType;
     private ReturnParam returnParam;
     private TypeConversion tsTypeConversion;
+
+    public String getBaseSql() {
+        return baseSql;
+    }
+
+    public void setBaseSql(String baseSql) {
+        this.baseSql = baseSql;
+    }
+
+    public Object getBaseParams() {
+        return baseParams;
+    }
+
+    public void setBaseParams(Object baseParams) {
+        this.baseParams = baseParams;
+    }
+
+    public Class<?> getBaseParamsType() {
+        return baseParamsType;
+    }
+
+    public void setBaseParamsType(Class<?> baseParamsType) {
+        this.baseParamsType = baseParamsType;
+    }
 
     public Map<String, Param> getSqlParams() {
         return sqlParams;

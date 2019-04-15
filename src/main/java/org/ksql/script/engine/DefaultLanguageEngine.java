@@ -1,37 +1,25 @@
 package org.ksql.script.engine;
 
 import org.ksql.script.annotation.Mapper;
-import org.ksql.script.bo.Param;
 import org.mirror.reflection.agent.MethodAgent;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 public class DefaultLanguageEngine implements LanguageEngine {
 
     private static LanguageEngine languageEngine = new DefaultLanguageEngine();
 
-    public static String createSql(MethodAgent methodAgent,Map<String,Param> paramMap){
-        Annotation mapper = methodAgent.getAnnotation(Mapper.class);
-        if(mapper==null){
+    public static EngineParams createEngineParams(MethodAgent methodAgent) {
+        Mapper mapper = methodAgent.getAnnotation(Mapper.class);
+        if (mapper == null || mapper.id().equals("")) {
             return null;
         }
-        return languageEngine.createSql("",paramMap);
-    }
 
-    public static Map<String,Param> createSqlParam(MethodAgent methodAgent){
-        return languageEngine.createSqlParam(methodAgent.getMethod());
-    }
+        String baseSql = mapper.id();
 
-    @Override
-    public String createSql(String baseSql, Map<String, Param> params) {
-        return null;
+        return languageEngine.create(baseSql, methodAgent);
     }
 
     @Override
-    public Map<String, Param> createSqlParam(Method method) {
-
+    public EngineParams create(String sql, MethodAgent methodAgent) {
         return null;
     }
 }
