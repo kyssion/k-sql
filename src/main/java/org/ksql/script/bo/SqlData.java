@@ -10,16 +10,15 @@ import java.util.Map;
 public class SqlData {
 
     private String sql;
-    private Map<String,String> sqlParams;
-    private Map<String,Class<?>> paramsType;
+    private Map<String,Param> sqlParams;
     private ReturnParam returnParam;
     private TypeConversion tsTypeConversion;
 
-    public Map<String, String> getSqlParams() {
+    public Map<String, Param> getSqlParams() {
         return sqlParams;
     }
 
-    public void setSqlParams(Map<String, String> sqlParams) {
+    public void setSqlParams(Map<String, Param> sqlParams) {
         this.sqlParams = sqlParams;
     }
 
@@ -46,14 +45,4 @@ public class SqlData {
     public void setSql(String sql) {
         this.sql = sql;
     }
-
-    public Map<String, Class<?>> getParamsType() {
-        return paramsType;
-    }
-
-    public void setParamsType(Map<String, Class<?>> paramsType) {
-        this.paramsType = paramsType;
-    }
-
-
 }

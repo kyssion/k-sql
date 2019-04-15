@@ -4,12 +4,10 @@ package org.ksql.script.builder;
 import org.ksql.script.bo.ReturnParam;
 import org.ksql.script.bo.SqlData;
 import org.ksql.script.bo.SqlDataMap;
-import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.agent.MethodAgent;
 import org.mirror.reflection.mirror.MirrorClass;
 import org.mirror.reflection.property.TypeParameterProcessor;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -26,15 +24,15 @@ public class DefaultSqlDataMapBuilder implements SqlDataMapBuilder {
         for (MethodAgent agent : list) {
             Method method = agent.getMethod();
             SqlData sqlData = new SqlData();
-            initReturnParam(sqlData, method);
+            initReturnParam(sqlData, agent);
 
         }
 
         return methMap;
     }
 
-    private void initReturnParam(SqlData sqlData, Method method) {
-        Class<?> returnType = (Class<?>) TypeParameterProcessor.processorReturnType(method);
+    private void initReturnParam(SqlData sqlData, MethodAgent method) {
+        Class<?> returnType = (Class<?>) TypeParameterProcessor.processorReturnType(method.getMethod());
         ReturnParam returnParam = null;
         Object object = null;
         try {
@@ -42,8 +40,7 @@ public class DefaultSqlDataMapBuilder implements SqlDataMapBuilder {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        returnParam = new ReturnParam(object,
-                returnType, ResultSet.class);
+        returnParam = new ReturnParam(object, returnType, ResultSet.class);
         sqlData.setReturnParam(returnParam);
     }
 
