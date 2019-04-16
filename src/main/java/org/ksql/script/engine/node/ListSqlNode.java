@@ -1,16 +1,22 @@
 package org.ksql.script.engine.node;
 
+import org.ksql.script.engine.SqlNodeType;
+import org.ksql.script.exception.ErrorException;
+import org.mirror.reflection.mirror.MirrorObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * :L{}
+ * :L{(:xxx,:ppp)}
  */
 public class ListSqlNode implements SqlNode {
 
+    private static final SqlNodeType type = SqlNodeType.LIST_VALUE;
+
     private String keyString;
     private List<String> keyItemList;
-    private List<Object> list;
+    private int length;
     private SqlNode nextSqlNode;
     private StringBuffer compileString;
 
@@ -24,37 +30,38 @@ public class ListSqlNode implements SqlNode {
         this.nextSqlNode = nextSqlNode;
     }
 
-    private void init(){
+    private void init() {
+        boolean hasToken = false;
+        if (this.keyString.startsWith("(") || this.keyString.endsWith(")")) {
+            this.keyString = this.keyString.substring(1, this.keyString.length() - 1);
+            hasToken = true;
+        }
+        this.keyString = this.keyString.replace(" ", "");
+        String[] arr = this.keyString.split(",");
+        for (int a = 0; a < arr.length; a++) {
+            this.keyItemList.add(arr[a].substring(1, arr[a].length() - 1));
+        }
         StringBuffer stringBuffer = new StringBuffer();
-        int start=0;
-        int end = 0;
-        while(end<this.keyString.length()){
-            if(this.keyString.charAt(end)==':'){
-                stringBuffer.append(this.keyString.substring(start,end));
-                int next = this.keyString.indexOf(',',end);
-                if(next<this.keyString.length()) {
-                    end = next;
-                    stringBuffer.append("?,");
-                }else{
-                    end = this.keyString.indexOf(")");
-                    stringBuffer.append("?");
-                }
-                keyItemList.add(this.keyString.substring(start+1,end));
-                end++;
-                start=end-1;
+        for (int a = 0; a < arr.length; a++) {
+            if (a == 0) {
+                stringBuffer.append("?");
+            } else {
+                stringBuffer.append(",?");
             }
         }
-        stringBuffer.append(this.keyString.substring(start,end));
-        this.compileString=stringBuffer;
+        if (hasToken) {
+            stringBuffer = new StringBuffer("(").append(stringBuffer).append(")");
+        }
+        this.compileString = stringBuffer;
     }
 
     @Override
     public StringBuffer toSqlString() {
         StringBuffer stringBuffer = new StringBuffer();
-        for (int a=0;a<this.list.size();a++){
-            if(a==0){
+        for (int a = 0; a < this.length; a++) {
+            if (a == 0) {
                 stringBuffer.append(this.compileString);
-            }else{
+            } else {
                 stringBuffer.append(",").append(stringBuffer);
             }
         }
@@ -62,12 +69,20 @@ public class ListSqlNode implements SqlNode {
     }
 
     @Override
-    public List<Object> toSqlParams() {
+    public List<Object> toSqlParams(Object value) {
+        MirrorObject mirrorObject = MirrorObject.forObject(value);
+        List<Object> params = new ArrayList<>();
+
         return new ArrayList<>();
     }
 
     @Override
     public SqlNode next() {
         return this.nextSqlNode;
+    }
+
+    @Override
+    public SqlNodeType getNodeType() {
+        return type;
     }
 }

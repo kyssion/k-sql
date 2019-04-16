@@ -1,5 +1,6 @@
 package org.ksql.script.engine.node;
 
+import org.ksql.script.engine.SqlNodeType;
 import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.mirror.MirrorObject;
 
@@ -8,8 +9,9 @@ import java.util.List;
 
 public class ObjectSqlNode implements SqlNode{
 
+    private static final SqlNodeType type=SqlNodeType.ITEM_VALUE;
+
     private Object value;
-    private MirrorObject mirrorObject;
     //附近相同的类型进行合并
     private List<String> keyString;
 
@@ -17,11 +19,6 @@ public class ObjectSqlNode implements SqlNode{
 
     public ObjectSqlNode(List<String> keyString){
         this.keyString=keyString;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
-        this.mirrorObject=MirrorObject.forObject(value);
     }
 
     public void setNextSqlNode(SqlNode nextSqlNode) {
@@ -42,14 +39,15 @@ public class ObjectSqlNode implements SqlNode{
     }
 
     @Override
-    public List<Object> toSqlParams() throws ErrorException {
-        if(this.mirrorObject==null){
+    public List<Object> toSqlParams(Object value) throws ErrorException {
+        MirrorObject mirrorObject = MirrorObject.forObject(value);
+        if(mirrorObject==null){
             throw new ErrorException();
         }
 
         List<Object> params = new ArrayList<>();
         for (String key:this.keyString){
-            params.add(this.mirrorObject.getValue(key));
+            params.add(mirrorObject.getValue(key));
         }
 
         return params;
@@ -58,5 +56,10 @@ public class ObjectSqlNode implements SqlNode{
     @Override
     public SqlNode next() {
         return this.nextSqlNode;
+    }
+
+    @Override
+    public SqlNodeType getNodeType() {
+        return type;
     }
 }
