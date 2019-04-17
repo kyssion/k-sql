@@ -1,5 +1,5 @@
 package org.ksql.script.engine;
 
 public enum SqlNodeType {
-    SQL_STR(),LIST_VALUE(),ITEM_VALUE();
+    SQLSTR_NODE(),LIST_VALUE_NODE(),OBJECT_VALUE_NODE(),NULL_NODE;
 }

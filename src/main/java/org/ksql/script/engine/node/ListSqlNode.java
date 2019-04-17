@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ListSqlNode implements SqlNode {
 
-    private static final SqlNodeType type = SqlNodeType.LIST_VALUE;
+    private static final SqlNodeType type = SqlNodeType.LIST_VALUE_NODE;
 
     private String keyString;
     private List<String> keyItemList;

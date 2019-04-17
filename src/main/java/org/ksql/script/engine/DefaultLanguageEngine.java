@@ -19,7 +19,7 @@ public class DefaultLanguageEngine implements LanguageEngine {
     }
 
     @Override
-    public EngineParams create(String sql, MethodAgent methodAgent) {
+    public EngineParams create(String sql, MethodAgent methodAgent, Object params) {
 
         return null;
     }

@@ -1,16 +1,12 @@
 package org.ksql.script.fatory;
 
 
-import org.ksql.script.annotation.Mapper;
 import org.ksql.script.bo.SqlData;
 import org.ksql.script.bo.SqlDataMap;
-import org.ksql.script.builder.DefaultSqlDataFactoryBuilder;
 import org.ksql.script.builder.DefaultSqlDataMapBuilder;
 import org.ksql.script.builder.SqlDataMapBuilder;
 import org.ksql.script.proxy.MapperProxyFactory;
-import org.mirror.reflection.mirror.MirrorClass;
 
-import java.lang.annotation.Annotation;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultSqlDataFactory implements SqlDataFactory{

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ObjectSqlNode implements SqlNode{
 
-    private static final SqlNodeType type=SqlNodeType.ITEM_VALUE;
+    private static final SqlNodeType type=SqlNodeType.OBJECT_VALUE_NODE;
 
     private Object value;
     //附近相同的类型进行合并

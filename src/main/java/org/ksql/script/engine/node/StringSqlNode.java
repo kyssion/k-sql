@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StringSqlNode implements SqlNode {
 
-    private static final SqlNodeType type = SqlNodeType.SQL_STR;
+    private static final SqlNodeType type = SqlNodeType.SQLSTR_NODE;
 
     private String node;
 
