@@ -1,7 +1,6 @@
 package org.ksql.script.engine.node;
 
 import org.ksql.script.engine.SqlNodeType;
-import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.mirror.MirrorObject;
 
 import java.util.ArrayList;
