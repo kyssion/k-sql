@@ -25,7 +25,7 @@ public class DefaultSqlDataMapBuilder implements SqlDataMapBuilder {
             Method method = agent.getMethod();
             SqlData sqlData = new SqlData();
             initReturnParam(sqlData, agent);
-
+            
         }
 
         return methMap;
