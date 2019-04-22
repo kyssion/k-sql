@@ -5,6 +5,9 @@ import org.ksql.script.exception.ErrorException;
 
 import java.util.List;
 
+/**
+ * 表示一个sql序列化的开始
+ */
 public class StartSqlNode implements SqlNode {
 
     private static final StringBuffer start= new StringBuffer();

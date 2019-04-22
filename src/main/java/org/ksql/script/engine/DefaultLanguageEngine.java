@@ -7,8 +7,6 @@ import org.ksql.script.builder.EngineParamsBuilder;
 import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.agent.MethodAgent;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
