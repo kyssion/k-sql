@@ -21,9 +21,7 @@ public class DefaultLanguageEngine implements LanguageEngine {
         if (mapper == null || mapper.id().equals("")) {
             return null;
         }
-
         String baseSql = mapper.id();
-
         try {
             return languageEngine.create(baseSql, methodAgent);
         } catch (ErrorException e) {
