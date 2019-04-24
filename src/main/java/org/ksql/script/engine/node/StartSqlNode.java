@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class StartSqlNode implements SqlNode {
 
-    private static final StringBuffer start= new StringBuffer();
+    private static final StringBuffer start = new StringBuffer();
 
     private static final SqlNodeType type = SqlNodeType.NULL_NODE;
 
-    private SqlNode next ;
+    private SqlNode next;
 
     @Override
     public StringBuffer toSqlString() {

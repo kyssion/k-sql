@@ -15,6 +15,7 @@ public class DefaultLanguageEngine implements LanguageEngine {
 
     private static LanguageEngine languageEngine = new DefaultLanguageEngine();
     private static EngineParamsBuilder engineParamsBuilder = new DefaultEngineParamsBuilder();
+
     public static EngineParams createEngineParams(MethodAgent methodAgent) {
         Mapper mapper = methodAgent.getAnnotation(Mapper.class);
         if (mapper == null || mapper.id().equals("")) {
@@ -33,31 +34,31 @@ public class DefaultLanguageEngine implements LanguageEngine {
 
     @Override
     public EngineParams create(String sql, MethodAgent methodAgent) throws ErrorException {
-        Object param= null;
-        if(methodAgent.getMethod().getParameterCount()>1){
-            Map<String,Object> map = new HashMap<>();
-            Parameter[] parameters= methodAgent.getMethod().getParameters();
-            for (Parameter parameter : parameters){
+        Object param = null;
+        if (methodAgent.getMethod().getParameterCount() > 1) {
+            Map<String, Object> map = new HashMap<>();
+            Parameter[] parameters = methodAgent.getMethod().getParameters();
+            for (Parameter parameter : parameters) {
                 Class<?> paramClass = parameter.getType();
                 Param paramAnnotation = parameter.getAnnotation(Param.class);
-                if(paramAnnotation==null||paramAnnotation.name()==null){
+                if (paramAnnotation == null || paramAnnotation.name() == null) {
                     throw new ErrorException();
-                }else{
+                } else {
                     try {
-                        map.put(paramAnnotation.name(),paramClass.getConstructor().newInstance());
+                        map.put(paramAnnotation.name(), paramClass.getConstructor().newInstance());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
-            param= map;
-        }else{
+            param = map;
+        } else {
             try {
                 param = methodAgent.getParamType()[0].getConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return engineParamsBuilder.create(sql,param);
+        return engineParamsBuilder.create(sql, param);
     }
 }

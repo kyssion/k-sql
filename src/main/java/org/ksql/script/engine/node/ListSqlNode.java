@@ -80,8 +80,7 @@ public class ListSqlNode implements SqlNode {
     @Override
     public List<Object> toSqlParams(Object value) {
         MirrorObject mirrorObject = MirrorObject.forObject(value);
-        List list = mirrorObject.getValue(this.listName,List.class);
-
+        List list = mirrorObject.getValue(this.listName, List.class);
         return new ArrayList<>();
     }
 

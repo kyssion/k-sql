@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface SqlNode {
     StringBuffer toSqlString();
-    List<Object>  toSqlParams(Object value) throws ErrorException;
+
+    List<Object> toSqlParams(Object value) throws ErrorException;
+
     SqlNode next();
+
     SqlNodeType getNodeType();
 }

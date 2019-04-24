@@ -12,8 +12,8 @@ public class StringSqlNode implements SqlNode {
 
     private SqlNode nextSqlNode;
 
-    public StringSqlNode(String node){
-        this.node=node;
+    public StringSqlNode(String node) {
+        this.node = node;
     }
 
     public void setNode(String node) {
@@ -24,7 +24,6 @@ public class StringSqlNode implements SqlNode {
     public StringBuffer toSqlString() {
         return new StringBuffer(this.node);
     }
-
 
     @Override
     public List<Object> toSqlParams(Object value) {
