@@ -4,10 +4,7 @@ import org.junit.ClassRule;
 import org.junit.experimental.theories.DataPoint;
 import org.ksql.script.annotation.Mapper;
 
-import java.awt.*;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
-import java.util.Map;
 
 public class FindTest {
     public static void main(String[] args) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -57,9 +54,7 @@ public class FindTest {
     }
 }
 
-class FindChild extends Find<String> {
-
-}
+class FindChild extends Find<String> {}
 
 class Find<T> {
     @ClassRule
