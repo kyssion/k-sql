@@ -1,6 +1,6 @@
-package org.ksql.script.engine.node;
+package org.ksql.script.templete.node;
 
-import org.ksql.script.engine.SqlNodeType;
+import org.ksql.script.templete.SqlNodeType;
 import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.mirror.MirrorObject;
 
@@ -42,7 +42,7 @@ public class ObjectSqlNode implements SqlNode {
     public List<Object> toSqlParams(Object value) throws ErrorException {
         MirrorObject mirrorObject = MirrorObject.forObject(value);
         if (mirrorObject == null) {
-            throw new ErrorException();
+            throw new ErrorException("");
         }
 
         List<Object> params = new ArrayList<>();

@@ -14,12 +14,16 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
     @Override
     public MapperMethod builder(MethodAgent methodAgent) {
         MapperMethod mapperMethod = new MapperMethod();
-        initBaseSql(methodAgent,mapperMethod);
-
+        initBaseSql(mapperMethod,methodAgent);
+        initSqlTemplete(mapperMethod,methodAgent);
         return mapperMethod;
     }
 
-    private void initBaseSql(MethodAgent methodAgent, MapperMethod mapperMethod) {
+    private void initSqlTemplete(MapperMethod mapperMethod, MethodAgent methodAgent) {
+
+    }
+
+    private void initBaseSql(MapperMethod mapperMethod,MethodAgent methodAgent) {
         if(methodAgent.hasAnnotation(Select.class)){
             mapperMethod.setBaseSql(methodAgent.getAnnotation(Select.class).value());
             mapperMethod.setSqlType(SqlType.SELECT);

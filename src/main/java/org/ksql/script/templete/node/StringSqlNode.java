@@ -1,6 +1,6 @@
-package org.ksql.script.engine.node;
+package org.ksql.script.templete.node;
 
-import org.ksql.script.engine.SqlNodeType;
+import org.ksql.script.templete.SqlNodeType;
 
 import java.util.List;
 

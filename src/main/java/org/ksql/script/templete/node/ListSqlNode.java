@@ -1,7 +1,6 @@
-package org.ksql.script.engine.node;
+package org.ksql.script.templete.node;
 
-import io.netty.handler.codec.serialization.ObjectEncoder;
-import org.ksql.script.engine.SqlNodeType;
+import org.ksql.script.templete.SqlNodeType;
 import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.mirror.MirrorObject;
 
@@ -45,7 +44,7 @@ public class ListSqlNode implements SqlNode {
             int lastIndex = key.lastIndexOf('.');
             String name = key.substring(0, lastIndex);
             if (name.equals(this.listName)) {
-                throw new ErrorException();
+                throw new ErrorException("");
             }
             this.listName = name;
             this.keyItemList.add(key);
