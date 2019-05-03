@@ -16,7 +16,7 @@
 package org.ksql.script.proxy;
 
 
-import org.ksql.script.bo.SqlDataMap;
+import org.ksql.script.bo.MapperClass;
 
 import java.lang.reflect.Proxy;
 
@@ -29,8 +29,8 @@ public class MapperProxyFactory {
     return Proxy.newProxyInstance(Thread.class.getClassLoader(), new Class[] { mapperProxy.getObjectType() }, mapperProxy);
   }
 
-  public static Object newInstance(SqlDataMap sqlDataMap) {
-    final MapperProxy<?> mapperProxy = new MapperProxy<>(sqlDataMap.getMapper(),sqlDataMap);
+  public static Object newInstance(MapperClass mapperClass) {
+    final MapperProxy<?> mapperProxy = new MapperProxy<>(mapperClass.getMapper(), mapperClass);
     return newInstance(mapperProxy);
   }
 

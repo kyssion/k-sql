@@ -1,7 +1,8 @@
 package org.ksql.script.proxy;
 
-import org.ksql.script.bo.SqlData;
-import org.ksql.script.bo.SqlDataMap;
+import org.ksql.script.annotation.Mapper;
+import org.ksql.script.bo.MapperClass;
+import org.ksql.script.bo.MapperMethod;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -12,17 +13,17 @@ public class MapperProxy<T> implements InvocationHandler {
 
     private Class<?> objectType;
 
-    private SqlDataMap sqlDataMap;
+    private MapperClass mapperClass;
 
-    public MapperProxy(T item,SqlDataMap sqlDataMap) {
+    public MapperProxy(T item, MapperClass mapperClass) {
         this.object = item;
         this.objectType = item.getClass();
-        this.sqlDataMap = sqlDataMap;
+        this.mapperClass = mapperClass;
     }
 
     @Override
-    public SqlData invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        return sqlDataMap.getMethodMap().get(method.getName());
+    public MapperMethod invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        return mapperClass.getMethodMap().get(method.getName());
     }
 
     public T getObject() {

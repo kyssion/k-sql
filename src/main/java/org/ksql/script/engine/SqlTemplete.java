@@ -4,7 +4,7 @@ import org.ksql.script.engine.node.SqlNode;
 import org.ksql.script.engine.node.StartSqlNode;
 
 
-public class EngineParams {
+public class SqlTemplete {
     private SqlNode start=new StartSqlNode();
     private Object value;
 

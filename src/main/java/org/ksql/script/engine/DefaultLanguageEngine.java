@@ -2,8 +2,6 @@ package org.ksql.script.engine;
 
 import org.ksql.script.annotation.Mapper;
 import org.ksql.script.annotation.Param;
-import org.ksql.script.builder.DefaultEngineParamsBuilder;
-import org.ksql.script.builder.EngineParamsBuilder;
 import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.agent.MethodAgent;
 
@@ -14,9 +12,8 @@ import java.util.Map;
 public class DefaultLanguageEngine implements LanguageEngine {
 
     private static LanguageEngine languageEngine = new DefaultLanguageEngine();
-    private static EngineParamsBuilder engineParamsBuilder = new DefaultEngineParamsBuilder();
 
-    public static EngineParams createEngineParams(MethodAgent methodAgent) {
+    public static SqlTemplete createEngineParams(MethodAgent methodAgent) {
         Mapper mapper = methodAgent.getAnnotation(Mapper.class);
         if (mapper == null || mapper.id().equals("")) {
             return null;
