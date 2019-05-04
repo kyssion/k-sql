@@ -1,8 +1,8 @@
 package org.ksql.script.templete;
 
 public enum SqlNodeType {
-    SQLSTR_NODE("simple string"),LIST_VALUE_NODE("list item"),
-    OBJECT_VALUE_NODE("object item"),NULL_NODE("other");
+    STR_TEMP_NODE("simple string"),LIST_TEMP_NODE("list item"),
+    OBJECT_TEMP_NODE("object item"),NULL_NODE("other"),START_NODE("start node");
     String desc;
     SqlNodeType(String desc){
         this.desc=desc;

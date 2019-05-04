@@ -6,7 +6,9 @@ import org.ksql.script.exception.SqlTempleteIsNullException;
 import org.ksql.script.exception.TypeErrorException;
 import org.ksql.script.templete.ResultsCollective;
 import org.ksql.script.templete.SqlTemplete;
-import org.ksql.script.templete.node.SqlNode;
+import org.ksql.script.templete.node.SqlNodeTemplete;
+import org.ksql.script.templete.node.StartSqlNodeTemplete;
+import org.ksql.script.templete.node.StringSqlNodeTemplete;
 import org.mirror.reflection.agent.MethodAgent;
 
 import java.lang.reflect.Parameter;
@@ -41,7 +43,46 @@ public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
     }
 
     public SqlTemplete createByObject(String baseSql, Object paramItem) {
-
+        DefaultSqlTempete defaultSqlTempete = new DefaultSqlTempete();
+        StartSqlNodeTemplete startSqlNodeTemplete = new StartSqlNodeTemplete();
+        SqlNodeTemplete nodeTemplete = startSqlNodeTemplete;
+        baseSql = baseSql.replaceAll("\n", "");
+        char[] sqlChars = baseSql.toCharArray();
+        int before = 0;
+        for (int index = 0; index < sqlChars.length; index++) {
+            if (sqlChars[index] == ':') {
+                SqlNodeTemplete stringNodeTemp = new StringSqlNodeTemplete(new String(sqlChars, before, index - before));
+                nodeTemplete.setNext(stringNodeTemp);
+                nodeTemplete = stringNodeTemp;
+                int findIndex = index;
+                while (findIndex < sqlChars.length) {
+                    if (sqlChars[findIndex] == ' ' || ('a' <= sqlChars[findIndex] && 'z' >= sqlChars[findIndex])) {
+                        findIndex++;
+                        continue;
+                    }
+                    if (sqlChars[findIndex] == ',') {
+                        int nowIndex = findIndex;
+                        while (nowIndex < sqlChars.length && sqlChars[nowIndex] == ' ') {
+                            nowIndex++;
+                        }
+                        if (sqlChars[nowIndex] != ':') {
+                            break;
+                        }
+                        findIndex = nowIndex + 1;
+                    } else {
+                        break;
+                    }
+                }
+                SqlNodeTemplete objNodeTemp = new StringSqlNodeTemplete(new String(sqlChars, index, findIndex - index));
+                nodeTemplete.setNext(objNodeTemp);
+                nodeTemplete = objNodeTemp;
+                before = findIndex;
+            }
+        }
+        SqlNodeTemplete strNodeTemp = new StringSqlNodeTemplete(new String(sqlChars,before,sqlChars.length-before));
+        nodeTemplete.setNext(strNodeTemp);
+        defaultSqlTempete.setSqlNode(startSqlNodeTemplete);
+        return defaultSqlTempete;
     }
 
     @Override
@@ -55,19 +96,19 @@ public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
 
 
     public class DefaultSqlTempete implements SqlTemplete {
+        private StartSqlNodeTemplete sqlNodeTemplete;
 
-        private SqlNode sqlNode;
-
-        public void setSqlNode(SqlNode sqlNode) {
-            this.sqlNode = sqlNode;
+        public void setSqlNode(StartSqlNodeTemplete sqlNodeTemplete) {
+            this.sqlNodeTemplete = sqlNodeTemplete;
         }
 
         @Override
-        public ResultsCollective createSql(Object params) throws SqlTempleteIsNullException{
-            if (this.sqlNode == null) {
+        public ResultsCollective createSql(Object params) throws SqlTempleteIsNullException {
+            if (this.sqlNodeTemplete == null) {
                 throw new SqlTempleteIsNullException(this.getClass());
             }
-            return null;
+            ResultsCollective resultsCollective = this.sqlNodeTemplete.createResultsCollective(params);
+            return resultsCollective;
         }
     }
 }
