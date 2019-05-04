@@ -1,6 +1,8 @@
 package org.ksql.script.bo;
 
 
+import org.ksql.script.templete.SqlTemplete;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +13,19 @@ public class MapperMethod {
     private String sql;
     private Map<String, Param> sqlParams;
 
+    private SqlTemplete sqlTemplete;
+
     private List<Object> baseParams;
     private List<Class<?>> baseParamsType;
     private Class<?> retObjectType;
+
+    public SqlTemplete getSqlTemplete() {
+        return sqlTemplete;
+    }
+
+    public void setSqlTemplete(SqlTemplete sqlTemplete) {
+        this.sqlTemplete = sqlTemplete;
+    }
 
     public SqlType getSqlType() {
         return sqlType;

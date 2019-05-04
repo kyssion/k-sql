@@ -1,5 +1,6 @@
 package org.ksql.script.templete.node;
 
+import org.ksql.script.templete.ResultsCollective;
 import org.ksql.script.templete.SqlNodeType;
 import org.ksql.script.exception.ErrorException;
 import org.mirror.reflection.mirror.MirrorObject;
@@ -64,7 +65,7 @@ public class ListSqlNode implements SqlNode {
     }
 
     @Override
-    public StringBuffer toSqlString() {
+    public StringBuffer toSqlString(Object value) {
         StringBuffer stringBuffer = new StringBuffer();
         for (int a = 0; a < this.length; a++) {
             if (a == 0) {
@@ -91,5 +92,10 @@ public class ListSqlNode implements SqlNode {
     @Override
     public SqlNodeType getNodeType() {
         return type;
+    }
+
+    @Override
+    public ResultsCollective getResultsCollective(Object param) {
+        return null;
     }
 }

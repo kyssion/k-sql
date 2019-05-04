@@ -28,14 +28,13 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
 
     private void initSqlTemplete(MapperMethod mapperMethod, MethodAgent methodAgent) {
         String baseSql = mapperMethod.getBaseSql();
-
         if (baseSql == null || "".equals(baseSql)) {
             throw new NoSqlInfoError(methodAgent);
         }
-
-        Object paramObject =
-
-        SqlTemplete sqlTemplete = this.sqlTempleteEngine.create(baseSql,)
+        SqlTemplete sqlTemplete = this.sqlTempleteEngine.create(baseSql, methodAgent);
+        if (sqlTemplete != null) {
+            mapperMethod.setSqlTemplete(sqlTemplete);
+        }
     }
 
     private void initBaseSql(MapperMethod mapperMethod, MethodAgent methodAgent) {

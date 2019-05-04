@@ -1,5 +1,6 @@
 package org.ksql.script.templete.node;
 
+import org.ksql.script.templete.ResultsCollective;
 import org.ksql.script.templete.SqlNodeType;
 import org.ksql.script.exception.ErrorException;
 
@@ -17,7 +18,7 @@ public class StartSqlNode implements SqlNode {
     private SqlNode next;
 
     @Override
-    public StringBuffer toSqlString() {
+    public StringBuffer toSqlString(Object value) {
         return start;
     }
 
@@ -38,5 +39,10 @@ public class StartSqlNode implements SqlNode {
     @Override
     public SqlNodeType getNodeType() {
         return type;
+    }
+
+    @Override
+    public ResultsCollective getResultsCollective(Object param) {
+        return null;
     }
 }

@@ -21,7 +21,7 @@ public class StringSqlNode implements SqlNode {
     }
 
     @Override
-    public StringBuffer toSqlString() {
+    public StringBuffer toSqlString(Object value) {
         return new StringBuffer(this.node);
     }
 
