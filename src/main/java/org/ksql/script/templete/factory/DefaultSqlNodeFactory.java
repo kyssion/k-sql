@@ -10,10 +10,9 @@ public class DefaultSqlNodeFactory implements SqlNodeTempleteFactory {
         switch (type) {
             case STR_TEMP_NODE:
                 return new StringSqlNodeTemplete(nodeString);
-            break;
             case NULL_NODE:
                 return null;
-            break;
         }
+        return null;
     }
 }
