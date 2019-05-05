@@ -1,6 +1,5 @@
 package org.ksql.script.proxy;
 
-import org.ksql.script.annotation.Mapper;
 import org.ksql.script.bo.MapperClass;
 import org.ksql.script.bo.MapperMethod;
 

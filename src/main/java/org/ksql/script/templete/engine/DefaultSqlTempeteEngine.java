@@ -33,7 +33,7 @@ public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
                 Parameter par = parameters[a];
                 Param parInfo = par.getAnnotation(Param.class);
                 if (parInfo != null) {
-                    String name = parInfo.name();
+                    String name = parInfo.value();
                     param.put(name, parameters[a].getType());
                 }
             }

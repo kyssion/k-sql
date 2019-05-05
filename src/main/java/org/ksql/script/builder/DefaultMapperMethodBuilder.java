@@ -43,13 +43,13 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
             mapperMethod.setSqlType(SqlType.SELECT);
         } else if (methodAgent.hasAnnotation(Update.class)) {
             mapperMethod.setBaseSql(methodAgent.getAnnotation(Update.class).value());
-            mapperMethod.setSqlType(SqlType.SELECT);
+            mapperMethod.setSqlType(SqlType.UPDETE);
         } else if (methodAgent.hasAnnotation(Insert.class)) {
             mapperMethod.setBaseSql(methodAgent.getAnnotation(Insert.class).value());
-            mapperMethod.setSqlType(SqlType.SELECT);
+            mapperMethod.setSqlType(SqlType.INSERT);
         } else if (methodAgent.hasAnnotation(Delete.class)) {
             mapperMethod.setBaseSql(methodAgent.getAnnotation(Delete.class).value());
-            mapperMethod.setSqlType(SqlType.SELECT);
+            mapperMethod.setSqlType(SqlType.DELETE);
         }
     }
 }

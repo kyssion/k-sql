@@ -1,5 +1,6 @@
 package org.ksql.script.builder;
 
+import org.ksql.script.fatory.DefaultMapperClassFactory;
 import org.ksql.script.fatory.MapperClassFactory;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -10,6 +11,6 @@ public class MapperClassFactoryBuilder {
             new AtomicReference<>();
 
     public static MapperClassFactory build(String packName) {
-        return mapperClassFactoryAtomicReference.get();
+        return new DefaultMapperClassFactory();
     }
 }
