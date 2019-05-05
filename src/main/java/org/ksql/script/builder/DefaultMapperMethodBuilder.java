@@ -1,11 +1,6 @@
 package org.ksql.script.builder;
 
-import org.ksql.script.annotation.Delete;
-import org.ksql.script.annotation.Insert;
-import org.ksql.script.annotation.Select;
-import org.ksql.script.annotation.Update;
 import org.ksql.script.bo.MapperMethod;
-import org.ksql.script.bo.SqlType;
 import org.ksql.script.exception.NoSqlInfoError;
 import org.ksql.script.templete.SqlTemplete;
 import org.ksql.script.templete.engine.DefaultSqlTempeteEngine;
@@ -20,8 +15,7 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
 
     @Override
     public MapperMethod builder(MethodAgent methodAgent) {
-        MapperMethod mapperMethod = new MapperMethod();
-        initBaseSql(mapperMethod, methodAgent);
+        MapperMethod mapperMethod = new MapperMethod(methodAgent);
         initSqlTemplete(mapperMethod, methodAgent);
         return mapperMethod;
     }
@@ -34,22 +28,6 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
         SqlTemplete sqlTemplete = this.sqlTempleteEngine.create(baseSql, methodAgent);
         if (sqlTemplete != null) {
             mapperMethod.setSqlTemplete(sqlTemplete);
-        }
-    }
-
-    private void initBaseSql(MapperMethod mapperMethod, MethodAgent methodAgent) {
-        if (methodAgent.hasAnnotation(Select.class)) {
-            mapperMethod.setBaseSql(methodAgent.getAnnotation(Select.class).value());
-            mapperMethod.setSqlType(SqlType.SELECT);
-        } else if (methodAgent.hasAnnotation(Update.class)) {
-            mapperMethod.setBaseSql(methodAgent.getAnnotation(Update.class).value());
-            mapperMethod.setSqlType(SqlType.UPDETE);
-        } else if (methodAgent.hasAnnotation(Insert.class)) {
-            mapperMethod.setBaseSql(methodAgent.getAnnotation(Insert.class).value());
-            mapperMethod.setSqlType(SqlType.INSERT);
-        } else if (methodAgent.hasAnnotation(Delete.class)) {
-            mapperMethod.setBaseSql(methodAgent.getAnnotation(Delete.class).value());
-            mapperMethod.setSqlType(SqlType.DELETE);
         }
     }
 }

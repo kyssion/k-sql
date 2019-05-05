@@ -3,7 +3,7 @@ package org.ksql.script.bo;
 import java.util.Map;
 
 public class MapperClass {
-    private Class<?> mapper;
+    private Class<?> mapperClass;
     private String mapperId;
     private final Map<String, MapperMethod> methodMap;
     private Object mapperProxy;
@@ -12,7 +12,7 @@ public class MapperClass {
         this.methodMap = methodMap;
     }
 
-    public MapperMethod getMapperMethod(String methodId, Object param) {
+    public MapperMethod getMapperMethod(String methodId) {
         MapperMethod method = methodMap.get(methodId);
         return method;
     }
@@ -25,12 +25,12 @@ public class MapperClass {
         this.mapperProxy = mapperProxy;
     }
 
-    public Class<?> getMapper() {
-        return mapper;
+    public Class<?> getMapperClass() {
+        return mapperClass;
     }
 
-    public void setMapper(Class<?> mapper) {
-        this.mapper = mapper;
+    public void setMapperClass(Class<?> mapperClass) {
+        this.mapperClass = mapperClass;
     }
 
     public String getMapperId() {

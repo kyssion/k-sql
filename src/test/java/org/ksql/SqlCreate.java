@@ -16,8 +16,7 @@ public class SqlCreate {
     public static void main(String[] args) throws Exception {
         MapperClassFactory factory = MapperClassFactoryBuilder.build("");
         MapperClass mapperClass = factory.create(TestMapper.class);
-        Map<String, MapperMethod> mapperMethodMap=mapperClass.getMethodMap();
-        MapperMethod method = mapperMethodMap.get("test");
+        MapperMethod method =mapperClass.getMapperMethod("test");
         SqlTemplete templete = method.getSqlTemplete();
         Map<String,Object> item = new HashMap<>();
         List<String> itel = new ArrayList<>();

@@ -1,23 +1,41 @@
 package org.ksql.script.bo;
 
 
+import org.ksql.script.annotation.Delete;
+import org.ksql.script.annotation.Insert;
+import org.ksql.script.annotation.Select;
+import org.ksql.script.annotation.Update;
 import org.ksql.script.templete.SqlTemplete;
+import org.mirror.reflection.agent.MethodAgent;
 
 import java.util.List;
-import java.util.Map;
 
 public class MapperMethod {
     private SqlType sqlType;
     private String baseSql;
-
-    private String sql;
-    private Map<String, Param> sqlParams;
-
     private SqlTemplete sqlTemplete;
-
-    private List<Object> baseParams;
     private List<Class<?>> baseParamsType;
     private Class<?> retObjectType;
+
+    public MapperMethod(MethodAgent methodAgent){
+        init(methodAgent);
+    }
+
+    private void init(MethodAgent methodAgent){
+        if (methodAgent.hasAnnotation(Select.class)) {
+            this.setBaseSql(methodAgent.getAnnotation(Select.class).value());
+            this.setSqlType(SqlType.SELECT);
+        } else if (methodAgent.hasAnnotation(Update.class)) {
+            this.setBaseSql(methodAgent.getAnnotation(Update.class).value());
+            this.setSqlType(SqlType.UPDETE);
+        } else if (methodAgent.hasAnnotation(Insert.class)) {
+            this.setBaseSql(methodAgent.getAnnotation(Insert.class).value());
+            this.setSqlType(SqlType.INSERT);
+        } else if (methodAgent.hasAnnotation(Delete.class)) {
+            this.setBaseSql(methodAgent.getAnnotation(Delete.class).value());
+            this.setSqlType(SqlType.DELETE);
+        }
+    }
 
     public SqlTemplete getSqlTemplete() {
         return sqlTemplete;
@@ -33,10 +51,6 @@ public class MapperMethod {
 
     public void setSqlType(SqlType sqlType) {
         this.sqlType = sqlType;
-    }
-
-    public void setBaseParams(List<Object> baseParams) {
-        this.baseParams = baseParams;
     }
 
     public List<Class<?>> getBaseParamsType() {
@@ -55,22 +69,6 @@ public class MapperMethod {
         this.retObjectType = retObjectType;
     }
 
-    public String getSql() {
-        return sql;
-    }
-
-    public void setSql(String sql) {
-        this.sql = sql;
-    }
-
-    public Map<String, Param> getSqlParams() {
-        return sqlParams;
-    }
-
-    public void setSqlParams(Map<String, Param> sqlParams) {
-        this.sqlParams = sqlParams;
-    }
-
     public String getBaseSql() {
         return baseSql;
     }
@@ -79,9 +77,6 @@ public class MapperMethod {
         this.baseSql = baseSql;
     }
 
-    public Object getBaseParams() {
-        return baseParams;
-    }
     public class Param {
         private List paramItem;
         private Class<?> paramType;
