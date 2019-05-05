@@ -6,6 +6,7 @@ import org.ksql.script.exception.SqlTempleteIsNullException;
 import org.ksql.script.exception.TypeErrorException;
 import org.ksql.script.templete.ResultsCollective;
 import org.ksql.script.templete.SqlTemplete;
+import org.ksql.script.templete.node.ObjectSqlNodeTempletem;
 import org.ksql.script.templete.node.SqlNodeTemplete;
 import org.ksql.script.templete.node.StartSqlNodeTemplete;
 import org.ksql.script.templete.node.StringSqlNodeTemplete;
@@ -54,32 +55,20 @@ public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
                 SqlNodeTemplete stringNodeTemp = new StringSqlNodeTemplete(new String(sqlChars, before, index - before));
                 nodeTemplete.setNext(stringNodeTemp);
                 nodeTemplete = stringNodeTemp;
-                int findIndex = index;
+                int findIndex = index+1;
                 while (findIndex < sqlChars.length) {
-                    if (sqlChars[findIndex] == ' ' || ('a' <= sqlChars[findIndex] && 'z' >= sqlChars[findIndex])) {
-                        findIndex++;
-                        continue;
-                    }
-                    if (sqlChars[findIndex] == ',') {
-                        int nowIndex = findIndex;
-                        while (nowIndex < sqlChars.length && sqlChars[nowIndex] == ' ') {
-                            nowIndex++;
-                        }
-                        if (sqlChars[nowIndex] != ':') {
-                            break;
-                        }
-                        findIndex = nowIndex + 1;
-                    } else {
+                    if (!('a' <= sqlChars[findIndex] && 'z' >= sqlChars[findIndex])) {
                         break;
                     }
+                    findIndex++;
                 }
-                SqlNodeTemplete objNodeTemp = new StringSqlNodeTemplete(new String(sqlChars, index, findIndex - index));
+                SqlNodeTemplete objNodeTemp = new ObjectSqlNodeTempletem(new String(sqlChars, index, findIndex - index));
                 nodeTemplete.setNext(objNodeTemp);
                 nodeTemplete = objNodeTemp;
                 before = findIndex;
             }
         }
-        SqlNodeTemplete strNodeTemp = new StringSqlNodeTemplete(new String(sqlChars,before,sqlChars.length-before));
+        SqlNodeTemplete strNodeTemp = new StringSqlNodeTemplete(new String(sqlChars, before, sqlChars.length - before));
         nodeTemplete.setNext(strNodeTemp);
         defaultSqlTempete.setSqlNode(startSqlNodeTemplete);
         return defaultSqlTempete;

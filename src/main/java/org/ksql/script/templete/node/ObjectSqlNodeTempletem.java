@@ -21,6 +21,9 @@ public class ObjectSqlNodeTempletem implements SqlNodeTemplete {
         baseSql = baseSql.replaceAll(" ", "").toLowerCase();
         key = baseSql;
         keyArr = baseSql.substring(1).split(".");
+        if(keyArr.length==0){
+            keyArr=new String[]{key.substring(1)};
+        }
     }
 
     public SqlNodeTemplete getNext() {
@@ -72,8 +75,9 @@ public class ObjectSqlNodeTempletem implements SqlNodeTemplete {
     }
 
     private void toSqlParams(MirrorObject value, int index, List<Object> list, Object item) {
-        if (index == keyArr.length) {
+        if (index >= keyArr.length) {
             list.add(item);
+            return;
         }
         Class<?> valueType = value.getGetterType(keyArr[index]);
         Object valueObject = value.getValue(keyArr[index]);

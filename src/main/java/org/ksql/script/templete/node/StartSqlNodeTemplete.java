@@ -50,11 +50,12 @@ public class StartSqlNodeTemplete implements SqlNodeTemplete {
         List<Object> list = new ArrayList<>();
         MirrorObject mirrorObject = MirrorObject.forObject(param);
         while (item != null) {
-            sql.append(item.toSqlParams(mirrorObject));
+            sql.append(item.toSqlString(mirrorObject));
             List<Object> params = item.toSqlParams(mirrorObject);
-            if (param != null) {
+            if (params != null) {
                 list.addAll(params);
             }
+            item=item.next();
         }
         ResultsCollective resultsCollective = new ResultsCollective();
         resultsCollective.setSql(sql.toString());
