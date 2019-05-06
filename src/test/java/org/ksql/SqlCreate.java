@@ -14,20 +14,28 @@ import java.util.Map;
 
 public class SqlCreate {
     public static void main(String[] args) throws Exception {
+//        new SqlCreate().test();
+        new SqlCreate().test1();
+    }
+
+    public void test1() throws Exception {
         MapperClassFactory factory = MapperClassFactoryBuilder.build("");
-        MapperClass mapperClass = factory.create(TestMapper.class);
-        MapperMethod method =mapperClass.getMapperMethod("test2");
-        SqlTemplete templete = method.getSqlTemplete();
-        Map<String,Object> item = new HashMap<>();
-        List<String> itel = new ArrayList<>();
-        for (int a=0;a<10;a++){
-            itel.add(""+a);
-        }
-        item.put("name",itel);
-        item.put("age","222");
         Item item1 = new Item();
         item1.setAge("123");
         item1.setName("wang");
-        ResultsCollective collective =templete.createSql(item1);
+        ResultsCollective resultsCollective =
+                factory.create(TestMapper.class)
+                        .getMapperMathodResults("test2",item1);
+    }
+
+    public void test() throws Exception {
+        MapperClassFactory factory = MapperClassFactoryBuilder.build("");
+        MapperClass mapperClass = factory.create(TestMapper.class);
+        MapperMethod method = mapperClass.getMapperMethod("test2");
+        SqlTemplete templete = method.getSqlTemplete();
+        Item item1 = new Item();
+        item1.setAge("123");
+        item1.setName("wang");
+        ResultsCollective collective = templete.createSql(item1);
     }
 }
