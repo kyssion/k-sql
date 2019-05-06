@@ -8,4 +8,6 @@ import org.ksql.script.annotation.Select;
 public interface TestMapper {
     @Select("select * from user where name=:name and age=:age")
     int test(@Param("name") String name, @Param("age") String age);
+    @Select("select * from user where name=:name and age=:age")
+    int test2(Item item);
 }

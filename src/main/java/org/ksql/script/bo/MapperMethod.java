@@ -1,27 +1,48 @@
 package org.ksql.script.bo;
 
 
-import org.ksql.script.annotation.Delete;
-import org.ksql.script.annotation.Insert;
-import org.ksql.script.annotation.Select;
-import org.ksql.script.annotation.Update;
+import org.ksql.script.annotation.*;
 import org.ksql.script.templete.SqlTemplete;
 import org.mirror.reflection.agent.MethodAgent;
+import org.mirror.reflection.mirror.MirrorClass;
 
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapperMethod {
     private SqlType sqlType;
     private String baseSql;
     private SqlTemplete sqlTemplete;
-    private List<Class<?>> baseParamsType;
+    private List<ParamItem> params;
     private Class<?> retObjectType;
 
-    public MapperMethod(MethodAgent methodAgent){
+    public MapperMethod(MethodAgent methodAgent) {
         init(methodAgent);
+        this.params = initParams(methodAgent);
     }
 
-    private void init(MethodAgent methodAgent){
+    private List<ParamItem> initParams(MethodAgent methodAgent) {
+        List<ParamItem> list = new ArrayList<>();
+        Parameter[] parameters = methodAgent.getParams();
+        for (Parameter parameter : parameters) {
+            ParamItem paramItem = new ParamItem();
+            Class<?> paramType = (Class<?>) parameter.getParameterizedType();
+            Param param = parameter.getAnnotation(Param.class);
+            if (param != null) {
+                paramItem.setParamName(param.value());
+            } else {
+                paramItem.setParamName(paramType.getName());
+            }
+            paramItem.setParamType(paramType);
+            list.add(paramItem);
+        }
+        return list;
+    }
+
+    private void init(MethodAgent methodAgent) {
         if (methodAgent.hasAnnotation(Select.class)) {
             this.setBaseSql(methodAgent.getAnnotation(Select.class).value());
             this.setSqlType(SqlType.SELECT);
@@ -53,14 +74,6 @@ public class MapperMethod {
         this.sqlType = sqlType;
     }
 
-    public List<Class<?>> getBaseParamsType() {
-        return baseParamsType;
-    }
-
-    public void setBaseParamsType(List<Class<?>> baseParamsType) {
-        this.baseParamsType = baseParamsType;
-    }
-
     public Class<?> getRetObjectType() {
         return retObjectType;
     }
@@ -77,27 +90,23 @@ public class MapperMethod {
         this.baseSql = baseSql;
     }
 
-    public class Param {
-        private List paramItem;
+    public Map<String, Object> createParamObject(Object[] params) {
+        Map<String, Object> map = new HashMap<>();
+        for (Object param : params) {
+            MirrorClass mirrorClass = MirrorClass.forClass(param.getClass());
+            for (ParamItem item : this.params) {
+                if(item.getParamType()==mirrorClass.getType()){
+                    map.put(item.getParamName(),param);
+                    break;
+                }
+            }
+        }
+        return map;
+    }
+
+    public class ParamItem {
         private Class<?> paramType;
         private String paramName;
-        private boolean isArr;
-
-        public boolean isArr() {
-            return isArr;
-        }
-
-        public void setArr(boolean arr) {
-            isArr = arr;
-        }
-
-        public List getParamItem() {
-            return paramItem;
-        }
-
-        public void setParamItem(List paramItem) {
-            this.paramItem = paramItem;
-        }
 
         public Class<?> getParamType() {
             return paramType;

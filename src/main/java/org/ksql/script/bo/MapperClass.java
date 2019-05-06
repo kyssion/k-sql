@@ -1,5 +1,8 @@
 package org.ksql.script.bo;
 
+import org.ksql.script.templete.ResultsCollective;
+
+import java.util.List;
 import java.util.Map;
 
 public class MapperClass {
@@ -43,6 +46,16 @@ public class MapperClass {
 
     public Map<String, MapperMethod> getMethodMap() {
         return methodMap;
+    }
+
+    public ResultsCollective getMapperMathodResults(String mapperMethodId, Object... param) throws Exception {
+        MapperMethod mapperMethod = this.methodMap.get(mapperMethodId);
+        if (param == null || param.length == 1) {
+            return mapperMethod.getSqlTemplete().createSql(param);
+        } else {
+            Map<String,Object> item = mapperMethod.createParamObject(param);
+            return mapperMethod.getSqlTemplete().createSql(item);
+        }
     }
 
 }

@@ -16,7 +16,7 @@ public class SqlCreate {
     public static void main(String[] args) throws Exception {
         MapperClassFactory factory = MapperClassFactoryBuilder.build("");
         MapperClass mapperClass = factory.create(TestMapper.class);
-        MapperMethod method =mapperClass.getMapperMethod("test");
+        MapperMethod method =mapperClass.getMapperMethod("test2");
         SqlTemplete templete = method.getSqlTemplete();
         Map<String,Object> item = new HashMap<>();
         List<String> itel = new ArrayList<>();
@@ -25,6 +25,9 @@ public class SqlCreate {
         }
         item.put("name",itel);
         item.put("age","222");
-        ResultsCollective collective =templete.createSql(item);
+        Item item1 = new Item();
+        item1.setAge("123");
+        item1.setName("wang");
+        ResultsCollective collective =templete.createSql(item1);
     }
 }

@@ -30,7 +30,7 @@ public class MapperProxyFactory {
   }
 
   public static Object newInstance(MapperClass mapperClass) {
-    final MapperProxy<?> mapperProxy = new MapperProxy<>(mapperClass.getMapper(), mapperClass);
+    final MapperProxy<?> mapperProxy = new MapperProxy<>(mapperClass.getMapperClass(), mapperClass);
     return newInstance(mapperProxy);
   }
 
