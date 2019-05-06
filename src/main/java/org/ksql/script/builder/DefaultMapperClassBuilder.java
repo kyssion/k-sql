@@ -24,7 +24,7 @@ public class DefaultMapperClassBuilder implements MapperClassBuilder {
             throw new NotInterfaceError(mirrorClass);
         }
         //init mapper type
-        mapperClass.setMapper(mapperclass);
+        mapperClass.setMapperClass(mapperclass);
 
         //init mapperMethodMap
         List<MethodAgent> methodList = mirrorClass.getAllMethod();
