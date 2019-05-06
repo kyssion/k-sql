@@ -7,4 +7,5 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 public @interface Select{
     String value() default "";
+    String name() default "";
 }

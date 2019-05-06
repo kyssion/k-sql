@@ -36,9 +36,8 @@ public class DefaultMapperClassBuilder implements MapperClassBuilder {
 
         //init mapperMethodId
         Mapper classmap = mirrorClass.getAnnotation(Mapper.class);
-        if(classmap!=null){
-//            mapperClass.setMapperId(classmap.id());
-            mapperClass.setMapperId(mirrorClass.getClassName());
+        if(classmap!=null&&!"".equals(classmap.id())){
+            mapperClass.setMapperId(classmap.id());
         }else{
             mapperClass.setMapperId(mirrorClass.getClassName());
         }
