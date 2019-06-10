@@ -24,7 +24,6 @@ public class MapperClassFactoryBuilder {
         for (Class<?> mapperClass : mapperSet) {
             if(mapperClass.isInterface()) {
                 mapperClassFactory.create(mapperClass);
-
             }
         }
         return mapperClassFactory;
