@@ -10,8 +10,8 @@ import org.ksql.script.templete.SqlTemplete;
 
 public class SqlCreate {
     public static void main(String[] args) throws Exception {
-//        new SqlCreate().test();
-        new SqlCreate().test1();
+        new SqlCreate().test();
+//        new SqlCreate().test1();
     }
 
     public void test1() throws Exception {
@@ -32,6 +32,10 @@ public class SqlCreate {
         Item item1 = new Item();
         item1.setAge("123");
         item1.setName("wang");
+        Item item2 = new Item();
+        item1.setName("wang2");
+        item2.setAge("123333");
         ResultsCollective collective = templete.createSql(item1);
+        ResultsCollective collective1 = templete.createSql(item2);
     }
 }

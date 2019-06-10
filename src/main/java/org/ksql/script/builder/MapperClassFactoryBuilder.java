@@ -1,6 +1,5 @@
 package org.ksql.script.builder;
 
-import org.ksql.script.bo.MapperClass;
 import org.ksql.script.fatory.DefaultMapperClassFactory;
 import org.ksql.script.fatory.MapperClassFactory;
 import org.mirror.reflection.io.ResolverUtil;
