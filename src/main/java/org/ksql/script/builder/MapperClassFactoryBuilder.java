@@ -2,7 +2,8 @@ package org.ksql.script.builder;
 
 import org.ksql.script.fatory.DefaultMapperClassFactory;
 import org.ksql.script.fatory.MapperClassFactory;
-import org.mirror.reflection.io.ResolverUtil;
+import org.mirror.reflection.io.ClassFindleUtil;
+import org.mirror.reflection.io.test.IsA;
 
 import java.util.Set;
 
@@ -18,8 +19,8 @@ public class MapperClassFactoryBuilder {
     }
 
     public static MapperClassFactory addMappers(String packageName, Class<?> superType) {
-        ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<>();
-        resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
+        ClassFindleUtil<Class<?>> resolverUtil = new ClassFindleUtil<>();
+        resolverUtil.find(new IsA(superType), packageName);
         Set<Class<? extends Class<?>>> mapperSet = resolverUtil.getClasses();
         MapperClassFactory mapperClassFactory = new DefaultMapperClassFactory();
         for (Class<?> mapperClass : mapperSet) {
