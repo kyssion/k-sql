@@ -16,6 +16,7 @@ public class MapperClassFactoryBuilder {
         }
         return  factory;
     }
+
     public static MapperClassFactory addMappers(String packageName, Class<?> superType) {
         ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<>();
         resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
