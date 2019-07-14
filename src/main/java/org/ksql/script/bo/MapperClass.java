@@ -5,6 +5,9 @@ import org.ksql.script.templete.ResultsCollective;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 一个mapper类的内部对应封装
+ */
 public class MapperClass {
     private Class<?> mapperClass;
     private String mapperId;

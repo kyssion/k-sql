@@ -12,12 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * mapper class 中每一个sql的单独封装
+ * */
 public class MapperMethod {
     private SqlType sqlType;
     private String baseSql;
     private SqlTemplete sqlTemplete;
     private List<ParamItem> params;
-    private Class<?> retObjectType;
+    private Class<?> retObjectType;//返回值类型
 
     public MapperMethod(MethodAgent methodAgent) {
         init(methodAgent);

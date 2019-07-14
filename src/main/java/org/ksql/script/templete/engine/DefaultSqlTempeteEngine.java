@@ -20,7 +20,7 @@ public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
 
     public SqlTemplete createByMethod(String baseSql, MethodAgent methodAgent) {
         Object paramObject = null;
-        if (methodAgent.getMethodParamCount() == 0) {
+        if (methodAgent.getMethodParamCount() == 1) {
             try {
                 paramObject = methodAgent.getParams()[0].getType()
                         .getDeclaredConstructor().newInstance();
