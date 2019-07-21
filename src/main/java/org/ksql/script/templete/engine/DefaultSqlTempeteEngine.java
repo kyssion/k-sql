@@ -3,17 +3,55 @@ package org.ksql.script.templete.engine;
 
 import org.ksql.script.exception.SqlNodeListIsNullException;
 import org.ksql.script.templete.ResultsCollective;
+import org.ksql.script.templete.SqlNodeType;
 import org.ksql.script.templete.SqlTemplete;
-import org.ksql.script.templete.node.SqlNode;
+import org.ksql.script.templete.node.*;
 import org.mirror.reflection.mirror.MirrorObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
 
     public SqlTemplete createByObject(String baseSql) {
-        //解析baseSql形成sqlList数组
+        baseSql.replaceAll("\n", "");
+        char[] sqlCharArr = baseSql.toCharArray();
+        SqlNodeType beforeSqlType = SqlNodeType.Base_Node;
+        List<SqlNode> list = new ArrayList<>();
+        //: $ #
+        int start = 0;
+        for (int a = 0; a < sqlCharArr.length; a++) {
+            if (sqlCharArr[a] == ':') {
+                list.add(new StringSqlNode(baseSql.substring(start, a)));
+                int endIndex = findK(sqlCharArr, a);
+                list.add(new ObjectSqlNode(baseSql.substring(a + 1, endIndex)));
+                start = endIndex;
+            } else if (sqlCharArr[a] == '$') {
+                list.add(new StringSqlNode(baseSql.substring(start, a)));
+                int endIndex = findK(sqlCharArr, a);
+                list.add(new ListObjectSqlNode(baseSql.substring(a + 1, endIndex)));
+                start = endIndex;
+            } else if (sqlCharArr[a] == '#') {
+                list.add(new StringSqlNode(baseSql.substring(start, a)));
+                int endIndex = findK(sqlCharArr, a);
+                list.add(new TemplateListSqlNode(baseSql.substring(a + 1, endIndex)));
+                start = endIndex;
+            }
+        }
+        if (start != sqlCharArr.length) {
+            list.add(new StringSqlNode(baseSql.substring(start, sqlCharArr.length)));
+        }
         return new DefaultSqlTempete();
+    }
+
+    private int findK(char[] arr, int start) {
+        while (start < arr.length) {
+            if (arr[start] == ' ') {
+                return start;
+            }
+            start++;
+        }
+        return start;
     }
 
     @Override

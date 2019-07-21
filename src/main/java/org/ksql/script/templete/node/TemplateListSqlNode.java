@@ -2,7 +2,6 @@ package org.ksql.script.templete.node;
 
 import org.mirror.reflection.mirror.MirrorObject;
 
-import java.util.Collections;
 import java.util.List;
 
 public class TemplateListSqlNode implements SqlNode {
@@ -11,9 +10,9 @@ public class TemplateListSqlNode implements SqlNode {
     private String end;
     private String mark;
 
-    public TemplateListSqlNode(String mark, String before, String end) {
-        this.before = before;
-        this.end = end;
+    public TemplateListSqlNode(String mark) {
+        this.before = "(";
+        this.end = ")";
         this.mark = mark;
     }
 

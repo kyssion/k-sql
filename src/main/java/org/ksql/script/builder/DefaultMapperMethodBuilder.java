@@ -25,6 +25,6 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
         if (baseSql == null || "".equals(baseSql)) {
             throw new NoSqlInfoError(methodAgent);
         }
-        SqlTemplete sqlTemplete = this.sqlTempleteEngine.create(baseSql);
+        mapperMethod.setSqlTemplete(this.sqlTempleteEngine.create(baseSql));
     }
 }
