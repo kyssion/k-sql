@@ -16,7 +16,7 @@
 package org.ksql.script.proxy;
 
 
-import org.ksql.script.bo.MapperClass;
+import org.ksql.script.mapper.MapperClass;
 
 import java.lang.reflect.Proxy;
 

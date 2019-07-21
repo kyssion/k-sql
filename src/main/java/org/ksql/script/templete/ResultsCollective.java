@@ -1,5 +1,9 @@
 package org.ksql.script.templete;
 
+import org.ksql.script.templete.node.SqlNode;
+import org.mirror.reflection.mirror.MirrorObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsCollective {
@@ -20,5 +24,17 @@ public class ResultsCollective {
 
     public void setParam(List<Object> param) {
         this.param = param;
+    }
+
+    public static ResultsCollective createResultsCollective(List<SqlNode> sqlNodes, MirrorObject object) {
+        ResultsCollective resultsCollective = new ResultsCollective();
+        List<Object> list = new ArrayList<>();
+        resultsCollective.setParam(list);
+        StringBuilder st = new StringBuilder();
+        for (SqlNode sqlNode : sqlNodes) {
+            st.append(sqlNode.sqlCreate(object, list));
+        }
+        resultsCollective.setSql(st.toString());
+        return resultsCollective;
     }
 }

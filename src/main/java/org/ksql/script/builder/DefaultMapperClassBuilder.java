@@ -1,8 +1,8 @@
 package org.ksql.script.builder;
 
 import org.ksql.script.annotation.Mapper;
-import org.ksql.script.bo.MapperClass;
-import org.ksql.script.bo.MapperMethod;
+import org.ksql.script.mapper.MapperClass;
+import org.ksql.script.mapper.MapperMethod;
 import org.ksql.script.exception.NotInterfaceError;
 import org.mirror.reflection.agent.MethodAgent;
 import org.mirror.reflection.mirror.MirrorClass;

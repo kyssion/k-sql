@@ -1,4 +1,4 @@
-package org.ksql.script.bo;
+package org.ksql.script.mapper;
 
 /**
  * 定义sql类型

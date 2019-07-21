@@ -1,8 +1,8 @@
 package org.ksql;
 
 import org.ksql.mapper.TestMapper;
-import org.ksql.script.bo.MapperClass;
-import org.ksql.script.bo.MapperMethod;
+import org.ksql.script.mapper.MapperClass;
+import org.ksql.script.mapper.MapperMethod;
 import org.ksql.script.builder.MapperClassFactoryBuilder;
 import org.ksql.script.fatory.MapperClassFactory;
 import org.ksql.script.templete.ResultsCollective;

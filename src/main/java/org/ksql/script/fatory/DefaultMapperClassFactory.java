@@ -1,6 +1,6 @@
 package org.ksql.script.fatory;
 
-import org.ksql.script.bo.MapperClass;
+import org.ksql.script.mapper.MapperClass;
 import org.ksql.script.builder.DefaultMapperClassBuilder;
 import org.ksql.script.builder.MapperClassBuilder;
 

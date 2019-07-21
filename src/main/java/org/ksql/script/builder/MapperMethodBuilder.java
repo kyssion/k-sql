@@ -1,6 +1,6 @@
 package org.ksql.script.builder;
 
-import org.ksql.script.bo.MapperMethod;
+import org.ksql.script.mapper.MapperMethod;
 import org.mirror.reflection.agent.MethodAgent;
 
 public interface MapperMethodBuilder {

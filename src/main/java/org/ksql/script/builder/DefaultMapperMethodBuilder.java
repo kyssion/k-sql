@@ -1,6 +1,6 @@
 package org.ksql.script.builder;
 
-import org.ksql.script.bo.MapperMethod;
+import org.ksql.script.mapper.MapperMethod;
 import org.ksql.script.exception.NoSqlInfoError;
 import org.ksql.script.templete.SqlTemplete;
 import org.ksql.script.templete.engine.DefaultSqlTempeteEngine;
@@ -15,7 +15,7 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
 
     @Override
     public MapperMethod builder(MethodAgent methodAgent) {
-        MapperMethod mapperMethod = new MapperMethod(methodAgent);
+        MapperMethod mapperMethod = new MapperMethod();
         initSqlTemplete(mapperMethod, methodAgent);
         return mapperMethod;
     }
@@ -25,9 +25,6 @@ public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
         if (baseSql == null || "".equals(baseSql)) {
             throw new NoSqlInfoError(methodAgent);
         }
-        SqlTemplete sqlTemplete = this.sqlTempleteEngine.create(baseSql, methodAgent);
-        if (sqlTemplete != null) {
-            mapperMethod.setSqlTemplete(sqlTemplete);
-        }
+        SqlTemplete sqlTemplete = this.sqlTempleteEngine.create(baseSql);
     }
 }
