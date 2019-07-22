@@ -41,7 +41,9 @@ public class DefaultSqlTempeteEngine implements SqlTempleteEngine {
         if (start != sqlCharArr.length) {
             list.add(new StringSqlNode(baseSql.substring(start, sqlCharArr.length)));
         }
-        return new DefaultSqlTempete();
+        DefaultSqlTempete defaultSqlTempete = new DefaultSqlTempete();
+        defaultSqlTempete.setSqlNodeList(list);
+        return defaultSqlTempete;
     }
 
     private int findK(char[] arr, int start) {

@@ -33,7 +33,7 @@ public class SqlCreate {
         item1.setAge("123");
         item1.setName("wang");
         Item item2 = new Item();
-        item1.setName("wang2");
+        item2.setName("wang2");
         item2.setAge("123333");
         ResultsCollective collective = templete.createSql(item1);
         ResultsCollective collective1 = templete.createSql(item2);

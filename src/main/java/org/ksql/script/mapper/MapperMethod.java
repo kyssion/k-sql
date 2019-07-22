@@ -16,7 +16,7 @@ import java.util.Map;
 public class MapperMethod {
     private SqlType sqlType;
     private String baseSql;
-    private List<Class<?>> paramsType;
+    private Class<?>[] paramsType;
     private MethodAgent methodAgent;
     private SqlTemplete sqlTemplete;
     private Class<?> retObjectType;//返回值类型
@@ -53,11 +53,11 @@ public class MapperMethod {
         this.baseSql = baseSql;
     }
 
-    public List<Class<?>> getParamsType() {
+    public Class<?>[] getParamsType() {
         return paramsType;
     }
 
-    public void setParamsType(List<Class<?>> paramsType) {
+    public void setParamsType(Class<?>[] paramsType) {
         this.paramsType = paramsType;
     }
 
