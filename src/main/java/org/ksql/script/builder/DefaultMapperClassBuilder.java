@@ -17,7 +17,7 @@ public class DefaultMapperClassBuilder implements MapperClassBuilder {
 
     @Override
     public MapperClass build(Class<?> mapperclass) {
-        MapperClass mapperClass = new MapperClass(new HashMap<>());
+        MapperClass mapperClass = new MapperClass();
         MirrorClass mirrorClass = MirrorClass.forClass(mapperclass);
 
         if (!mirrorClass.isInferface()){
@@ -29,6 +29,7 @@ public class DefaultMapperClassBuilder implements MapperClassBuilder {
         //init mapperMethodMap
         List<MethodAgent> methodList = mirrorClass.getAllMethod();
         Map<String, MapperMethod> mapperMethodMap = mapperClass.getMethodMap();
+
         for(MethodAgent methodAgent:methodList){
             MapperMethod mapperMethod = methodBuilder.builder(methodAgent);
             mapperMethodMap.put(methodAgent.getMethodName(),mapperMethod);

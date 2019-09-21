@@ -2,6 +2,7 @@ package org.ksql.script.mapper;
 
 import org.ksql.script.templete.ResultsCollective;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,8 +14,8 @@ public class MapperClass {
     private final Map<String, MapperMethod> methodMap;
     private Object mapperProxy;
 
-    public MapperClass(Map<String, MapperMethod> methodMap) {
-        this.methodMap = methodMap;
+    public MapperClass() {
+        this.methodMap = new HashMap<>();
     }
 
     public MapperMethod getMapperMethod(String methodId) {

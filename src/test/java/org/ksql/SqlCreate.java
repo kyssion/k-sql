@@ -11,7 +11,6 @@ import org.ksql.script.templete.SqlTemplete;
 public class SqlCreate {
     public static void main(String[] args) throws Exception {
         new SqlCreate().test();
-//        new SqlCreate().test1();
     }
 
     public void test1() throws Exception {
@@ -20,7 +19,7 @@ public class SqlCreate {
         item1.setAge("123");
         item1.setName("wang");
         ResultsCollective resultsCollective =
-                factory.create(TestMapper.class)
+                factory.getMapper(TestMapper.class)
                         .getMapperMathodResults("test2",item1);
     }
 

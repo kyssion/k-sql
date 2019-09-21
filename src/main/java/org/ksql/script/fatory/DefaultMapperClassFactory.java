@@ -1,5 +1,6 @@
 package org.ksql.script.fatory;
 
+import org.ksql.script.exception.ErrorException;
 import org.ksql.script.mapper.MapperClass;
 import org.ksql.script.builder.DefaultMapperClassBuilder;
 import org.ksql.script.builder.MapperClassBuilder;
@@ -14,11 +15,18 @@ public class DefaultMapperClassFactory implements MapperClassFactory {
 
     @Override
     public MapperClass create(Class<?> mapper) {
-        if (cache.containsKey(mapper)) {
-            return cache.get(mapper);
-        }
         MapperClass mapperClass = builder.build(mapper);
         cache.put(mapper, mapperClass);
         return mapperClass;
+    }
+
+    @Override
+    public MapperClass getMapper(Class<?> mapper) {
+        MapperClass mapperClass = cache.get(mapper);
+        if(mapperClass!=null){
+            return mapperClass;
+        }else{
+            throw new ErrorException("没有发现这个mapper信息："+mapper.getName());
+        }
     }
 }
