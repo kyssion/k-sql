@@ -2,6 +2,9 @@ package org.ksql.script.exception;
 
 import org.mirror.reflection.mirror.MirrorClass;
 
+/**
+ * Not an interface
+ */
 public class NotInterfaceError extends ErrorException {
 
     public NotInterfaceError(MirrorClass mirrorClass) {

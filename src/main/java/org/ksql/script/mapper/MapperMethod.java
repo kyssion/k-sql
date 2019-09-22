@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * mapper class 中每一个sql的单独封装
+ * Separate encapsulation of each sqlMethod in the mapper class
  */
 public class MapperMethod {
     private SqlType sqlType;

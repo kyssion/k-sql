@@ -2,6 +2,9 @@ package org.ksql.script.exception;
 
 import org.mirror.reflection.agent.MethodAgent;
 
+/**
+ * Did not find the sql constructor
+ */
 public class NoSqlInfoError extends ErrorException {
 
     public NoSqlInfoError(MethodAgent methodAgent){

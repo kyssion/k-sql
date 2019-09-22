@@ -7,6 +7,9 @@ import org.mirror.reflection.io.ClassUtill;
 
 import java.util.Set;
 
+/**
+ * Construct a construction factory for the classFactory
+ */
 public class MapperClassFactoryBuilder {
 
     public static  MapperClassFactory build(String packageName) {

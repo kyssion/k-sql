@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 一个mapper类的内部对应封装
+ * Internal counterpart of a mapper class
  */
 public class MapperClass {
     private Class<?> mapperClass;
     private String mapperId;
     private final Map<String, MapperMethod> methodMap;
-    private Object mapperProxy;
 
     public MapperClass() {
         this.methodMap = new HashMap<>();
@@ -21,14 +20,6 @@ public class MapperClass {
     public MapperMethod getMapperMethod(String methodId) {
         MapperMethod method = methodMap.get(methodId);
         return method;
-    }
-
-    public Object getMapperProxy() {
-        return mapperProxy;
-    }
-
-    public void setMapperProxy(Object mapperProxy) {
-        this.mapperProxy = mapperProxy;
     }
 
     public Class<?> getMapperClass() {

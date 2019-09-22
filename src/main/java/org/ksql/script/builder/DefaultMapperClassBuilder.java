@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The constructor of the classMapper to construct the classMapper
+ */
 public class DefaultMapperClassBuilder implements MapperClassBuilder {
 
     private MapperMethodBuilder methodBuilder = new DefaultMapperMethodBuilder();
@@ -42,9 +45,6 @@ public class DefaultMapperClassBuilder implements MapperClassBuilder {
         }else{
             mapperClass.setMapperId(mirrorClass.getClassName());
         }
-
-        //init MapperProxy
-        mapperClass.setMapperProxy(new Object());
         return mapperClass;
     }
 }

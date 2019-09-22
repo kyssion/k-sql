@@ -8,6 +8,9 @@ import org.ksql.script.builder.MapperClassBuilder;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Create a factory method for mapperclass
+ */
 public class DefaultMapperClassFactory implements MapperClassFactory {
 
     private static final Map<Class, MapperClass> cache = new ConcurrentHashMap<>();

@@ -1,7 +1,7 @@
 package org.ksql.script.mapper;
 
 /**
- * 定义sql类型
+ * Define sql type
  */
 public enum SqlType {
     SELECT,DELETE,UPDETE,INSERT

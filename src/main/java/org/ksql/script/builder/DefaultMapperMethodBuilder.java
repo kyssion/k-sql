@@ -15,7 +15,9 @@ import org.mirror.reflection.agent.MethodAgent;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
-
+/**
+ * The class method and the constructor class handled in sql to construct the classMapperMethod
+ */
 public class DefaultMapperMethodBuilder implements MapperMethodBuilder {
 
     private SqlTempleteEngine sqlTempleteEngine
